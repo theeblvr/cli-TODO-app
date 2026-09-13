@@ -4,7 +4,7 @@ from rich.table import Table
 from rich.panel import Panel
 
 from models import Todo
-from database import insert_todo, get_all_todos, delete_todo, update_todo, complete_todo
+from database import insert_todo, get_all_todos, delete_todo, reset_todos, update_todo, complete_todo
 
 console = Console()
 app = typer.Typer()
@@ -34,7 +34,13 @@ def complete(position: int):
     complete_todo(position - 1)
     show()
 
-@app.command()
+@app.command(short_help='Clears all todo items')
+def reset():
+    typer.echo("Resetting todo list")
+    reset_todos()
+    show()
+
+@app.command(short_help='Displays all TODOS')
 def show():
     tasks = get_all_todos()
     console.print("[bold cyan]   ==========  ╔══════════════════════════════╗  ========== [/bold cyan]")
