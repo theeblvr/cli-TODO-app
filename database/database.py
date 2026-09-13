@@ -77,6 +77,11 @@ def delete_todo(position):
             change_position(pos, pos - 1, False)
 
 
+def reset_todos():
+    with conn:
+        c.execute('DELETE FROM todos')
+
+
 def change_position(old_position: int, new_position: int, commit=True):
     c.execute(
         'UPDATE todos SET position = :position_new WHERE position = :position_old',
